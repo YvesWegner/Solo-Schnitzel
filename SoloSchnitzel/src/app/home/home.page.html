@@ -1,11 +1,6 @@
 <ion-content class="ion-padding">
   <div class="title">SOLO <br />SCHNITZEL</div>
 
-  <ion-button id="present-alert" class="firstbutton">START</ion-button>
-  <ion-alert
-    trigger="present-alert"
-    header="Alert!"
-    [buttons]="alertButtons"
-  ></ion-alert>
+  <ion-button (click)="presentAlert()" class="firstbutton">START</ion-button>
   <ion-button>LEADERBOARD</ion-button>
 </ion-content>

@@ -66,3 +66,14 @@ ion-button {
   display: block; /* Für Block-Level-Elemente, oder 'inline-block' für Inline-Block-Elemente */
   text-align: center; /* Zentriert den Text im Button */
 }
+
+button.alert-button.alert-button-decline {
+  color: red;
+}
+button.alert-button.alert-button-accept {
+  color: green;
+  margin-right: 35%;
+}
+ion-alert .alert-button {
+  font-size: 1.5rem !important; /* Setzt die Schriftgröße und erzwingt die Regel */
+}

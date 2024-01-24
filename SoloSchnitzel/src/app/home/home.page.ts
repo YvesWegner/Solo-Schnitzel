@@ -8,7 +8,8 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { Camera, CameraPermissionType } from '@capacitor/camera';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-home',
@@ -28,9 +29,13 @@ export class HomePage {
         {
           text: 'ACCEPT',
           cssClass: 'alert-button-accept',
-          handler: () => {
-            // Aktion für "Accept"
-            this.accessCamera();
+          handler: async () => {
+            console.log('Checking camera permissions');
+            const status = await Camera.checkPermissions();
+            if (status.camera !== 'granted') {
+              await Camera.requestPermissions();
+            }
+            await this.presentGeolocationPermissionAlert();
           },
         },
         {
@@ -45,15 +50,30 @@ export class HomePage {
 
     await alert.present();
   }
-  async accessCamera() {
-    try {
-      const cameraPhoto = await Camera.getPhoto({
-        resultType: CameraResultType.Uri, // oder 'base64', 'dataUrl'
-        quality: 90, // Bildqualität
-      });
-      console.log(cameraPhoto);
-    } catch (e) {
-      console.error('Camera issue: ', e);
-    }
+  async presentGeolocationPermissionAlert() {
+    const alert = await this.alertController.create({
+      header: 'Geolocation Permission',
+      message: "Allow app to access this device's location?",
+      buttons: [
+        {
+          text: 'Accept',
+          handler: async () => {
+            console.log('Checking geolocation permissions');
+            const status = await Geolocation.checkPermissions();
+            if (status.location !== 'granted') {
+              await Geolocation.requestPermissions();
+            }
+          },
+        },
+        {
+          text: 'Decline',
+          role: 'cancel',
+          handler: () => {
+            console.log('Geolocation permission declined');
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 }

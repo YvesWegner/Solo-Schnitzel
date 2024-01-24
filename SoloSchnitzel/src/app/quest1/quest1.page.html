@@ -10,4 +10,10 @@
       <ion-title size="large">quest1</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card *ngIf="distance">
+    <ion-card-content>
+      <label>Distance: {{distance}}</label>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block">Done</ion-button>
 </ion-content>

@@ -31,4 +31,38 @@
 }
 html {
   --ion-font-family: "Friend";
+  --ion-text-color: white;
+}
+
+ion-content {
+  --background: none;
+  background: linear-gradient(160deg, #003049 0%, #669bbc 100%);
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+}
+
+.parent {
+  font-size: 30px;
+}
+.child {
+  font-size: 2em;
+}
+ion-button {
+  --background: transparent; /* Entfernt den Standard-Hintergrund */
+  --background-focused: transparent; /* Entfernt den Hintergrund, wenn der Button fokussiert ist */
+  --background-hover: none; /* Entfernt den Hintergrund beim Überfahren mit der Maus */
+  --background-activated: transparent; /* Entfernt den Hintergrund, wenn der Button aktiviert ist */
+  --ripple-color: transparent; /* Entfernt den Ripple-Effekt bei Klick oder Tippen */
+  --box-shadow: none;
+
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  margin: 50px;
+  padding: 10px 20px;
+  text-transform: uppercase; /* Für Großbuchstaben */
+  font-weight: bold; /* Für fett gedruckten Text */
+  font-size: 2em; /* Schriftgröße */
+  width: auto; /* Oder die gewünschte Breite, oder entfernen Sie diese Eigenschaft für automatische Breite */
+  height: auto; /* Für automatische Höhe, oder setzen Sie einen spezifischen Wert */
+  display: block; /* Für Block-Level-Elemente, oder 'inline-block' für Inline-Block-Elemente */
+  text-align: center; /* Zentriert den Text im Button */
 }

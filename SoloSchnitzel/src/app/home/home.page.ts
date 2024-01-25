@@ -19,6 +19,7 @@ import { Geolocation } from '@capacitor/geolocation';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonAlert, IonIcon],
 })
 export class HomePage {
+
   constructor(private alertController: AlertController) {}
 
   async presentAlert() {
@@ -64,6 +65,7 @@ export class HomePage {
             if (status.location !== 'granted') {
               await Geolocation.requestPermissions();
             }
+            await this.presentNamePrompt();
           },
         },
         {
@@ -75,6 +77,37 @@ export class HomePage {
         },
       ],
     });
+    await alert.present();
+  }
+
+  async presentNamePrompt() {
+
+    const alert = await this.alertController.create({
+      header: 'Spielerinformation',
+      inputs: [
+        {
+          name: 'playerName',
+          type: 'text',
+          placeholder: 'Spielername'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Abbrechen',
+          role: 'cancel',
+          handler: () => {
+            console.log('Abbrechen geklickt');
+          }
+        },
+        {
+          text: 'Bestätigen',
+          handler: (data) => {
+            console.log('Bestätigen geklickt mit:', data.playerName);
+          }
+        }
+      ]
+    });
+
     await alert.present();
   }
 }

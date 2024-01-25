@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {Geolocation, Position} from '@capacitor/geolocation';
+import {Geolocation} from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-quest1',
@@ -11,21 +11,28 @@ import {Geolocation, Position} from '@capacitor/geolocation';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
+
 export class Quest1Page {
-distanceurl?: BigInteger
+  async printCurrentPosition() {
+    try {
+      const coords1 = await Geolocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 15000
+      });
 
-  async printCurrentPosition = async() => {
-    const coords1 = await Geolocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 15000
-    });
+      const coords2 = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
 
-    console.log('Current distance:', this.distance);
-  };
+      const distance = this.haversineDistance(coords1.coords, coords2);
 
-  export function haversineDistance(
+      console.log('Current distance:', distance);
+    } catch (error) {
+      console.error('Error getting current position:', error);
+    }
+  }
+
+  haversineDistance(
     coords1: { latitude: number; longitude: number },
-    coords2: { latitude: 47.071945403994924; longitude: 8.348885173299777},
+    coords2: { latitude: number; longitude: number }
   ) {
     const R = 6371e3; // Earth's radius in meters
     const lat1Rad = coords1.latitude * (Math.PI / 180);
@@ -46,8 +53,5 @@ distanceurl?: BigInteger
 
     return distance; // in meters
   }
-
-
-
-
 }
+

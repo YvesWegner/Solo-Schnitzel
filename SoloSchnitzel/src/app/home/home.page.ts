@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   IonAlert,
   IonButton,
@@ -20,7 +21,7 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class HomePage {
 
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private router: Router) {}
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -87,9 +88,7 @@ export class HomePage {
     });
     await alert.present();
   }
-
   async presentNamePrompt() {
-
     const alert = await this.alertController.create({
       header: 'Spielerinformation',
       inputs: [
@@ -111,6 +110,7 @@ export class HomePage {
           text: 'Bestätigen',
           handler: (data) => {
             console.log('Bestätigen geklickt mit:', data.playerName);
+            this.router.navigateByUrl('/quests-info'); // Verwenden Sie den Router, um zur Seite zu navigieren
           }
         }
       ]

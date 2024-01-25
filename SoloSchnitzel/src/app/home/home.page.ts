@@ -3,7 +3,7 @@ import {
   IonAlert,
   IonButton,
   IonContent,
-  IonHeader,
+  IonHeader, IonIcon,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
@@ -16,7 +16,7 @@ import { Geolocation } from '@capacitor/geolocation';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonAlert],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonAlert, IonIcon],
 })
 export class HomePage {
   constructor(private alertController: AlertController) {}

@@ -13,7 +13,9 @@ import {Geolocation} from '@capacitor/geolocation';
 })
 
 export class Quest1Page {
-  distance?: number
+  distance?: number;
+  isAlertOpen = false;
+  alertButtons = ['OK'];
   async printCurrentPosition() {
     try {
       const coords1 = await Geolocation.getCurrentPosition({
@@ -56,6 +58,12 @@ export class Quest1Page {
   }
   async finishQuest() {
 
+  }
+
+  async alert(isOpen: boolean) {
+     if (this.distance !== undefined && this.distance <= 2) {
+      this.isAlertOpen = isOpen;
+    }
   }
 }
 

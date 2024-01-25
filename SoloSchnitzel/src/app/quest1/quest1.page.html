@@ -17,3 +17,10 @@
   </ion-card>
   <ion-button expand="block" class="button" (click)="finishQuest()">Done</ion-button>
 </ion-content>
+<ion-alert [isOpen]="isAlertOpen"
+header="Quest Complete"
+sub-header="You have completed the quest!!!"
+message="press OK to continue"
+[buttons]="alertButtons"
+(didDismiss)="alert(false)">
+</ion-alert>

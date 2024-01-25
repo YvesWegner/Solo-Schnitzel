@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import {Geolocation} from '@capacitor/geolocation';
+import {CallbackID, Geolocation} from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-quest1',
@@ -18,25 +18,50 @@ export class Quest1Page implements OnInit{
   alertButtons = ['OK'];
 
   async ngOnInit() {
-    await this.printCurrentPosition()
-    await this.alert(this.isAlertOpen)
+    //await this.printCurrentPosition()
+    await this.startPositionTracking()
   }
-
-  async printCurrentPosition() {
+  async startPositionTracking() {
     try {
-      const coords1 = await Geolocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 15000
-      });
-
-      const coords2 = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
-
-      this.distance = this.haversineDistance(coords1.coords, coords2);
-
-      console.log('Current distance:', this.distance);
+      this.distance = await Geolocation.watchPosition(
+        { enableHighAccuracy: true, timeout: 15000 },
+        (position, err) => {
+          if (err) {
+            console.error('Error getting current position:', err);
+            return;
+          }
+          if (position) {
+            const coords1 = position.coords;
+            const coords2 = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
+            this.distance = this.haversineDistance(coords1, coords2);
+            console.log('Current distance:', this.distance);
+            this.alert(this.isAlertOpen);
+          }
+        }
+      );
     } catch (error) {
       console.error('Error getting current position:', error);
     }
+
+  /*async printCurrentPosition() {
+    try {
+
+      await Geolocation.watchPosition({enableHighAccuracy: true, timeout: 15000},  (position , err) => {
+          if (err) {
+            console.error('Error getting current position', err);
+            return;
+          } if (position) {
+            const coords1 = position.coords;
+            const coords2 = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
+            this.distance = this.haversineDistance(coords1, coords2);
+            console.log('Current distance:', this.distance);
+            this.alert(this.isAlertOpen);
+          }
+      }
+        );
+      } catch (error) {
+      console.error('Error getting current position:', error);
+    }*/
   }
 
   haversineDistance(

@@ -12,20 +12,15 @@ export const routes: Routes = [
   },
   {
     path: 'quest1',
-    loadComponent: () => import('./quest1/quest1.page').then( m => m.Quest1Page)
+    loadComponent: () => import('./quest1/quest1.page').then(m => m.Quest1Page),
   },
   {
     path: 'quests-info',
     loadComponent: () => import('./quests-info/quests-info.page').then( m => m.QuestsInfoPage)
   },
   {
-    path: 'quests-info',
-    loadComponent: () => import('./quests-info/quests-info.page').then( m => m.QuestsInfoPage)
-  },
-  {
-    path: 'quests-info',
-    loadComponent: () => import('./quests-info/quests-info.page').then(m => m.QuestsInfoPage),
-    // Beachten Sie, dass 'standalone: true' hier nicht notwendig ist, da es im Component-Decorator in der quests-info.page.ts-Datei definiert wird.
+    path: 'quest3',
+    loadComponent: () => import('./quest3/quest3.page').then( m => m.Quest3Page)
   },
 
 ];

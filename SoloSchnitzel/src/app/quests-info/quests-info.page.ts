@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicModule} from "@ionic/angular";
+import { Router } from '@angular/router';
+import {AlertController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-quests-info',
@@ -9,8 +11,10 @@ import {IonicModule} from "@ionic/angular";
   imports: [
     IonicModule
   ],
-  // Wichtig, wenn Sie Standalone-Komponenten verwenden
 })
 export class QuestsInfoPage {
-  // Logik für die QuestsInfo-Seite
+  constructor(private router: Router) {}
+  goToQuest1() {
+    this.router.navigateByUrl('/quest1');
+  }
 }

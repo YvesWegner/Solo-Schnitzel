@@ -13,6 +13,7 @@ import {Geolocation} from '@capacitor/geolocation';
 })
 
 export class Quest1Page {
+  distance?: number
   async printCurrentPosition() {
     try {
       const coords1 = await Geolocation.getCurrentPosition({
@@ -52,6 +53,9 @@ export class Quest1Page {
     const distance = R * c;
 
     return distance; // in meters
+  }
+  async finishQuest() {
+
   }
 }
 

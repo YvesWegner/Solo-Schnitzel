@@ -17,4 +17,13 @@ export class QuestsInfoPage {
   goToQuest1() {
     this.router.navigateByUrl('/quest1');
   }
+  goToQuest2() {
+    this.router.navigateByUrl('/quest2');
+  }
+  goToQuest3() {
+    this.router.navigateByUrl('/quest3');
+  }
+  goToQuest4() {
+    this.router.navigateByUrl('/quest4');
+  }
 }

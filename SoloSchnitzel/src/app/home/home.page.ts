@@ -59,13 +59,21 @@ export class HomePage {
       buttons: [
         {
           text: 'Accept',
-          handler: async () => {
+          handler: async () => { // Markiert als async
             console.log('Checking geolocation permissions');
             const status = await Geolocation.checkPermissions();
             if (status.location !== 'granted') {
-              await Geolocation.requestPermissions();
+              const permissionStatus = await Geolocation.requestPermissions({ permissions: ["location"] });
+              if (permissionStatus.location === 'granted') {
+                console.log('Geolocation access granted');
+                await this.presentNamePrompt();
+              } else {
+                console.log('Geolocation access denied');
+              }
+            } else {
+              console.log('Geolocation access already granted');
+              await this.presentNamePrompt();
             }
-            await this.presentNamePrompt();
           },
         },
         {

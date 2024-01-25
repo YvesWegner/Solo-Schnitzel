@@ -32,6 +32,7 @@ export class HomePage {
           handler: async () => {
             console.log('Checking camera permissions');
             const status = await Camera.checkPermissions();
+            console.log(status)
             if (status.camera !== 'granted') {
               await Camera.requestPermissions();
             }

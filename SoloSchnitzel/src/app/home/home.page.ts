@@ -7,7 +7,7 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
-import { AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular/standalone';
 import { Camera, CameraPermissionType } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 

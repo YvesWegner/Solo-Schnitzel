@@ -23,7 +23,7 @@ export class Quest1Page implements OnInit{
   }
   async startPositionTracking() {
     try {
-      this.distance = await Geolocation.watchPosition(
+      await Geolocation.watchPosition(
         { enableHighAccuracy: true, timeout: 15000 },
         (position, err) => {
           if (err) {

@@ -1,5 +1,10 @@
 <ion-content class="ion-padding">
   <div class="title">QUEST 3</div>
-  <p class="child">Bewegungsdaten: {{ motionData }}</p>
-
+  <ion-list class="listQuest3">
+    <ion-item *ngFor="let task of tasks; let i = index">
+      <ion-label>
+        {{ task.description }} [{{ task.completed ? '1' : '0' }}/1]
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

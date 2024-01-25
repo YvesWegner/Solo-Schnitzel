@@ -1,46 +1,59 @@
-import {Component, OnInit} from '@angular/core';
-import { Motion } from '@capacitor/motion';
-import { PluginListenerHandle } from '@capacitor/core';
-import {IonicModule} from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
+import { Network, ConnectionStatus } from '@capacitor/network';
+import {IonicModule, IonicSlides} from "@ionic/angular";
+import {IonContent, IonItem, IonLabel, IonList} from "@ionic/angular/standalone";
+import {CommonModule} from "@angular/common";
 
+interface NetworkTask {
+  description: string;
+  completed: boolean;
+  shouldBeConnected: boolean;
+}
 @Component({
   selector: 'app-quest3',
   templateUrl: './quest3.page.html',
   styleUrls: ['./quest3.page.scss'],
   imports: [
-    IonicModule
-  ], // Importieren Sie hier das IonicModule
+    IonLabel,
+    IonItem,
+    IonContent,
+    IonList,
+    CommonModule
+  ],
   standalone: true
 })
 export class Quest3Page implements OnInit {
-  motionData: string = '';
-  private motionHandler: PluginListenerHandle | null = null;
-  private intervalId: any;
+  tasks: NetworkTask[] = [
+    { description: 'Trenne dich vom WLAN', completed: false, shouldBeConnected: false },
+    { description: 'Verbinde dich zum WLAN', completed: false, shouldBeConnected: true },
+    { description: 'Trenne dich vom WLAN', completed: false, shouldBeConnected: false },
+    { description: 'Verbinde dich zum WLAN', completed: false, shouldBeConnected: true }
+  ];
+
+  currentTaskIndex: number = 0;
 
   async ngOnInit() {
-    this.startMotionListener();
+    Network.addListener('networkStatusChange', this.handleNetworkChange);
+
+    const status = await Network.getStatus();
+    this.updateTaskCompletion(status);
   }
 
-  async startMotionListener() {
-    this.motionHandler = await Motion.addListener('accel', event => {
-      // Hier verarbeiten Sie das Bewegungsereignis
-      this.motionData = `X: ${event.acceleration.x.toFixed(3)}, Y: ${event.acceleration.y.toFixed(3)}, Z: ${event.acceleration.z.toFixed(3)}`;
-    });
+  private handleNetworkChange = (status: ConnectionStatus) => {
+    console.log('Network status changed', status);
+    this.updateTaskCompletion(status);
+  };
 
-    // Starten Sie das Intervall, um die Funktion alle 3 Sekunden auszuführen
-    this.intervalId = setInterval(() => {
-      if (this.motionData) {
-        console.log(this.motionData);
-        // Hier könnten Sie weitere Logik implementieren
-      }
-    }, 3000);
+  private updateTaskCompletion(status: ConnectionStatus) {
+    const currentTask = this.tasks[this.currentTaskIndex];
+
+    if (currentTask && ((status.connected && currentTask.shouldBeConnected) || (!status.connected && !currentTask.shouldBeConnected))) {
+      currentTask.completed = true;
+      this.currentTaskIndex++;
+    }
   }
 
   ngOnDestroy() {
-    // Listener entfernen, wenn die Komponente zerstört wird
-    this.motionHandler?.remove();
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
+    Network.removeAllListeners();
   }
 }

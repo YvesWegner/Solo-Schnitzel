@@ -1,13 +1,6 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>quest4</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">quest4</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="title">QUEST 4</div>
+
+  <p class="Quest4schrift">GERÄT AN DEN STROM ANSCHLIESSEN [{{ isCharging ? '1' : '0' }}/1]</p>
+  <p class="Quest4schrift">Batterieladung: {{ batteryLevel }}%</p>
 </ion-content>

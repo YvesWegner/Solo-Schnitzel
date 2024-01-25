@@ -1,6 +1,19 @@
 .title {
   font-size: 6em;
   text-align: center !important;
+  margin-bottom: 50%;
+}
+
+ion-content {
+  --ion-background-color: transparent; // Setzt den Hintergrund auf transparent
+}
+
+ion-item {
+
+  --background: transparent; // Setzt den Hintergrund der einzelnen Listenelemente auf transparent
+  --color: white; // Setzt die Textfarbe auf weiß
+  font-size: 2em; // Vergrößert die Schriftgröße
+
 }
 
 

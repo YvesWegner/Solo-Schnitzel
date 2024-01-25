@@ -1,18 +1,13 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>quest1</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>git
       <ion-title size="large">quest1</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-card class="ion-margin-top">
+  <div class="title">QUEST 1</div>
+  <ion-card class="card">
     <ion-card-content>
-      <label>Distance: {{distance}}</label>
+      <label class="distance">Distance: {{distance}}m</label>
     </ion-card-content>
   </ion-card>
   <ion-button expand="block" class="button" (click)="finishQuest()">Done</ion-button>

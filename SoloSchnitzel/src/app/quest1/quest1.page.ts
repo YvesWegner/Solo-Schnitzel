@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import {CallbackID, Geolocation} from '@capacitor/geolocation';
-
+import {Router, Routes} from '@angular/router';
+import {Geolocation} from '@capacitor/geolocation';
+import {
+  IonAlert,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar
+} from "@ionic/angular/standalone";
 @Component({
   selector: 'app-quest1',
   templateUrl: './quest1.page.html',
   styleUrls: ['./quest1.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonHeader, CommonModule, FormsModule, IonContent, IonTitle, IonToolbar, IonCard, IonCardContent, IonButton, IonAlert]
 })
 
 export class Quest1Page implements OnInit{
@@ -17,6 +26,7 @@ export class Quest1Page implements OnInit{
   isAlertOpen = false;
   alertButtons = ['OK'];
 
+  constructor(private router: Router) {}
   async ngOnInit() {
     //await this.printCurrentPosition()
     await this.startPositionTracking()
@@ -69,7 +79,7 @@ export class Quest1Page implements OnInit{
     return distance; // in meters
   }
   async finishQuest() {
-
+    this.router.navigateByUrl('/quests-info');
   }
 
   async alert(isOpen: boolean) {

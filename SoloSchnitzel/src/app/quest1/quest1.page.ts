@@ -12,10 +12,16 @@ import {Geolocation} from '@capacitor/geolocation';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 
-export class Quest1Page {
+export class Quest1Page implements OnInit{
   distance?: number;
   isAlertOpen = false;
   alertButtons = ['OK'];
+
+  async ngOnInit() {
+    await this.printCurrentPosition()
+    await this.alert(this.isAlertOpen)
+  }
+
   async printCurrentPosition() {
     try {
       const coords1 = await Geolocation.getCurrentPosition({
@@ -25,9 +31,9 @@ export class Quest1Page {
 
       const coords2 = { latitude: 47.071945403994924, longitude: 8.348885173299777 };
 
-      const distance = this.haversineDistance(coords1.coords, coords2);
+      this.distance = this.haversineDistance(coords1.coords, coords2);
 
-      console.log('Current distance:', distance);
+      console.log('Current distance:', this.distance);
     } catch (error) {
       console.error('Error getting current position:', error);
     }
@@ -61,9 +67,18 @@ export class Quest1Page {
   }
 
   async alert(isOpen: boolean) {
-     if (this.distance !== undefined && this.distance <= 2) {
-      this.isAlertOpen = isOpen;
-    }
+     try {
+       if (this.distance != undefined && this.distance <= 2) {
+         isOpen = true
+         this.isAlertOpen = isOpen;
+         console.log("distance is undefined")
+         return;
+       }
+       console.log("distance is not undefined")
+       return
+     } catch (error) {
+       console.error('Error with', error);
+     }
   }
 }
 

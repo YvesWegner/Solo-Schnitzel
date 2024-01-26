@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Network, ConnectionStatus } from '@capacitor/network';
 import {IonicModule, IonicSlides} from "@ionic/angular";
-import {IonContent, IonItem, IonLabel, IonList} from "@ionic/angular/standalone";
+import {IonButton, IonContent, IonItem, IonLabel, IonList} from "@ionic/angular/standalone";
 import {CommonModule} from "@angular/common";
+import {Router, Routes} from '@angular/router';
 
 interface NetworkTask {
   description: string;
@@ -18,17 +19,21 @@ interface NetworkTask {
     IonItem,
     IonContent,
     IonList,
-    CommonModule
+    CommonModule,
+    IonButton
   ],
   standalone: true
 })
 export class Quest3Page implements OnInit {
+
   tasks: NetworkTask[] = [
     { description: 'Trenne dich vom WLAN', completed: false, shouldBeConnected: false },
     { description: 'Verbinde dich zum WLAN', completed: false, shouldBeConnected: true },
     { description: 'Trenne dich vom WLAN', completed: false, shouldBeConnected: false },
     { description: 'Verbinde dich zum WLAN', completed: false, shouldBeConnected: true }
   ];
+  constructor(private router: Router) {
+  }
 
   currentTaskIndex: number = 0;
 

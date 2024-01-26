@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule } from '@ionic/angular';
+import { BarcodeScanner, Barcode } from '@capacitor-mlkit/barcode-scanning';
+
 
 @Component({
   selector: 'app-quest2',
@@ -11,10 +13,46 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class Quest2Page implements OnInit {
+  taskDone = false;
+  barcodes: Barcode[] = [];
 
-  constructor() { }
+  constructor(private alertController: AlertController) {}
 
   ngOnInit() {
+    this.installGoogleBarcodeScannerModule();
   }
 
+  async installGoogleBarcodeScannerModule() {
+    await BarcodeScanner.installGoogleBarcodeScannerModule();
+  }
+
+  async scan(): Promise<void> {
+    const granted = await this.requestPermissions();
+    if (!granted) {
+      await this.presentAlert();
+      return;
+    }
+    const { barcodes } = await BarcodeScanner.scan();
+    this.barcodes.push(...barcodes);
+
+    // Überprüfen Sie hier den gescannten Wert des QR-Codes
+    if (this.barcodes[this.barcodes.length - 1].rawValue == 'IhrQRCodeWert') {
+      console.log("Erfolg");
+      this.taskDone = true;
+    }
+  }
+
+  async requestPermissions(): Promise<boolean> {
+    const { camera } = await BarcodeScanner.requestPermissions();
+    return camera === 'granted' || camera === 'limited';
+  }
+
+  async presentAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Berechtigung verweigert',
+      message: 'Bitte erteilen Sie die Kameraberechtigung, um den Barcode-Scanner zu nutzen.',
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
 }

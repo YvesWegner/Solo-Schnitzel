@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { Network, ConnectionStatus } from '@capacitor/network';
 import {IonContent, IonItem, IonLabel, IonList} from "@ionic/angular/standalone";
 import {CommonModule} from "@angular/common";
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular/standalone';
 import { QuestService } from '../services/quest.service';
 
 interface NetworkTask {
@@ -28,7 +28,8 @@ export class Quest3Page implements OnInit {
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private questService: QuestService
+    private questService: QuestService,
+    private cd: ChangeDetectorRef
   ) {
   }
 
@@ -58,6 +59,7 @@ export class Quest3Page implements OnInit {
 
     if (currentTask && ((status.connected && currentTask.shouldBeConnected) || (!status.connected && !currentTask.shouldBeConnected))) {
       currentTask.completed = true;
+      this.cd.detectChanges();
       this.currentTaskIndex++;
       this.completeQuest();
     }

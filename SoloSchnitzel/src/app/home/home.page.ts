@@ -88,6 +88,10 @@ export class HomePage {
     });
     await alert.present();
   }
+  async openLeaderboard() {
+    this.router.navigateByUrl('/leaderboard'); // Verwenden Sie den Router, um zur Seite zu navigieren
+
+  }
   async presentNamePrompt() {
     const alert = await this.alertController.create({
       header: 'Spielerinformation',
@@ -115,6 +119,7 @@ export class HomePage {
         }
       ]
     });
+
 
     await alert.present();
   }

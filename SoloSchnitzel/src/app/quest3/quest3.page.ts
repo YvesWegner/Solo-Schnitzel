@@ -1,3 +1,4 @@
+
   import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
   import { Network, ConnectionStatus } from '@capacitor/network';
   import {IonContent, IonItem, IonLabel, IonList} from "@ionic/angular/standalone";
@@ -6,7 +7,6 @@
   import { AlertController } from '@ionic/angular/standalone';
   import { QuestService } from '../services/quest.service';
   import { Haptics, ImpactStyle } from '@capacitor/haptics';
-
 
   interface NetworkTask {
     description: string;

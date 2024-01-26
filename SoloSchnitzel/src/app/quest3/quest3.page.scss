@@ -1,7 +1,6 @@
 .title {
   font-size: 6em;
   text-align: center !important;
-  margin-bottom: 50%;
 }
 
 ion-content {
@@ -15,6 +14,14 @@ ion-item {
   font-size: 2em; // Vergrößert die Schriftgröße
 
 }
+.description {
 
+  --background: transparent;
+  --color: white;
+  font-size: 2em;
+  text-align: center;
+  margin: 10%
+
+}
 
 

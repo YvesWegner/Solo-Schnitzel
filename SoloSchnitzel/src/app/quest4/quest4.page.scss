@@ -1,9 +1,17 @@
 .title {
   font-size: 6em;
   text-align: center !important;
-  margin-bottom: 50%;
 }
 .Quest4schrift{
   font-size: 3em;
   text-align: center;
+}
+.description {
+
+  --background: transparent;
+  --color: white;
+  font-size: 2em;
+  text-align: center;
+  margin: 10%
+
 }

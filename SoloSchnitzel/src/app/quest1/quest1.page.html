@@ -5,12 +5,13 @@
     </ion-toolbar>
   </ion-header>
   <div class="title">QUEST 1</div>
+  <div class="description">FIND THE TABLE TENNIS NEAR THE PARKING SPACE!</div>
   <ion-card class="card">
     <ion-card-content>
       <label class="distance">Distance: {{distance}}m</label>
     </ion-card-content>
   </ion-card>
-  <ion-button [disabled]="btndissabled" expand="block" class="button" (click)="finishQuest()">Done</ion-button>
+  <ion-button [disabled]="btndissabled" expand="block" class="button" (click)="finishQuest()">DONE</ion-button>
 </ion-content>
 <ion-alert [isOpen]="isAlertOpen"
            header="Quest Complete"

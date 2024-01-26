@@ -91,8 +91,7 @@ export class Quest1Page implements OnInit{
 
   async alert(isOpen: boolean) {
     try {
-      if (this.distance !== undefined && this.distance <= 30) {
-        await Haptics.impact({ style: ImpactStyle.Light });
+      if (this.distance !== undefined && this.distance <= 2) {
         this.isAlertOpen = true;
         console.log("Showing alert because distance is within 2 meters");
         if (this.isAlertOpen === true) {

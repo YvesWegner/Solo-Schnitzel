@@ -3,7 +3,6 @@
     <div>
       <ion-title class="ion-padding ion-text-center">QR-CODES SCAN-ZEIT!!</ion-title>
       <ion-text class="ion-text-center">Scanne den richtigen QR-Code, um die Aufgabe abzuschließen.</ion-text>
-      <img class="ion-padding" src="/assets/images/qr-code-sample.jpg">
       <ion-button (click)="scan()" [disabled]="taskDone">Scanne</ion-button>
       <div class="ion-text-center">
         <p *ngIf="taskDone">Richtiger QR-Code gescannt!</p>

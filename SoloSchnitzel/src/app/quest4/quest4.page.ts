@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { Device } from '@capacitor/device';
 import { Router } from '@angular/router';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
+
 
 @Component({
   selector: 'app-quest4',
@@ -35,6 +37,7 @@ export class Quest4Page implements OnInit {
   }
 
   private async showCompletionAlert() {
+    await Haptics.impact({ style: ImpactStyle.Light });
     const alert = await this.alertController.create({
       header: 'Herzlichen Glückwunsch!',
       message: 'Quest 4 abgeschlossen! Du hast das Spiel erfolgreich beendet.',

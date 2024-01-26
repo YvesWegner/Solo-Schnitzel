@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {Router, Routes} from '@angular/router';
 import {Geolocation} from '@capacitor/geolocation';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
+
 import {
   IonAlert,
   IonButton,
@@ -90,6 +92,7 @@ export class Quest1Page implements OnInit{
   async alert(isOpen: boolean) {
     try {
       if (this.distance !== undefined && this.distance <= 30) {
+        await Haptics.impact({ style: ImpactStyle.Light });
         this.isAlertOpen = true;
         console.log("Showing alert because distance is within 2 meters");
         if (this.isAlertOpen === true) {

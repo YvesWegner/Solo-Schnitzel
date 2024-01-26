@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { BarcodeScanner, Barcode } from '@capacitor-mlkit/barcode-scanning';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {Router, Routes} from '@angular/router';
@@ -13,6 +13,7 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
+import {ChangeDetection} from "@angular/cli/lib/config/workspace-schema";
 @Component({
   selector: 'app-quest1',
   templateUrl: './quest1.page.html',
@@ -25,8 +26,11 @@ export class Quest1Page implements OnInit{
   distance?: number;
   isAlertOpen = false;
   alertButtons = ['OK'];
+  btndissabled = true;
 
-  constructor(private router: Router) {}
+
+  constructor(private router: Router, private cd: ChangeDetectorRef) {
+  }
   async ngOnInit() {
     //await this.printCurrentPosition()
     await this.startPositionTracking()
@@ -46,6 +50,7 @@ export class Quest1Page implements OnInit{
             this.distance = this.haversineDistance(coords1, coords2);
             console.log('Current distance:', this.distance);
             this.alert(this.isAlertOpen);
+            this.cd.detectChanges()
           }
         }
       );
@@ -84,16 +89,20 @@ export class Quest1Page implements OnInit{
 
   async alert(isOpen: boolean) {
     try {
-      if (this.distance != undefined && this.distance <= 2) {
-        isOpen = true
-        this.isAlertOpen = isOpen;
-        console.log("distance is undefined")
-        return;
+      if (this.distance !== undefined && this.distance <= 30) {
+        this.isAlertOpen = true;
+        console.log("Showing alert because distance is within 2 meters");
+        if (this.isAlertOpen === true) {
+          this.btndissabled = false;
+        }
+        // Trigger your alert here
+      } else {
+        this.isAlertOpen = false;
+        console.log("Distance is not within 2 meters");
       }
-      console.log("distance is not undefined")
-      return
     } catch (error) {
-      console.error('Error with', error);
+      console.error('Error with alert:', error);
     }
   }
+
 }

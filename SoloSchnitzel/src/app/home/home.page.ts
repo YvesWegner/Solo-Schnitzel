@@ -9,7 +9,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { AlertController } from '@ionic/angular/standalone';
-import { Camera, CameraPermissionType } from '@capacitor/camera';
+import { Camera, CameraPermissionType, CameraResultType } from '@capacitor/camera';
 import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
@@ -32,23 +32,28 @@ export class HomePage {
           text: 'ACCEPT',
           cssClass: 'alert-button-accept',
           handler: async () => {
-            console.log('Checking camera permissions');
-            const status = await Camera.checkPermissions();
-            console.log(status)
+            // Überprüfen und anfordern von Kamera-Berechtigungen
+            let status = await Camera.checkPermissions();
             if (status.camera !== 'granted') {
-              await Camera.requestPermissions();
+              status = await Camera.requestPermissions();
             }
-            await this.presentGeolocationPermissionAlert();
-          },
+
+            console.log('Camera permission status:', status);
+
+            // Nur Geolocation-Berechtigung anfordern, wenn Kamera-Berechtigung erteilt wurde
+            if (status.camera === 'granted') {
+              await this.presentGeolocationPermissionAlert();
+            }
+          }
         },
         {
           text: 'DECLINE',
           cssClass: 'alert-button-decline',
           handler: () => {
             console.log('Camera access declined');
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
 
     await alert.present();

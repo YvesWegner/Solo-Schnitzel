@@ -6,8 +6,17 @@
   margin-top: 10%;
 }
 .card {
-  margin-top: 140%;
+  margin-top: 110%;
 }
 .distance {
   font-size: 24px;
+}
+.description {
+
+  --background: transparent;
+  --color: white;
+  font-size: 2em;
+  text-align: center;
+  margin: 10%
+
 }
